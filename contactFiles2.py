@@ -54,7 +54,7 @@ for filename in filenames:
         temp_name_docx.add_paragraph('学号：' + ID[0])
         temp_name_docx.add_paragraph('\n')
 
-        ##### 方法1： 按行遍历   （开始）#################################
+        ##### 方法1： 按行遍历 * 但只读了文件中的文字，缺少文件中的图片和表格  （开始）#################################
         #遍历单个文件，读取行数
         # docx_file = docx.Document(filepath)
         # docx_paragraphs = docx_file.paragraphs
@@ -65,16 +65,12 @@ for filename in filenames:
         ##### 方法1： 按行遍历   （结束）#################################
         #f.write('\n')
 
-        ##### 方法2： 文档复制   （开始）#################################
+        ##### 方法2： 文档复制 * 将文件全部保留源格式打包读入  （开始）#################################
         #docx_name = Document_compose(temp_name_docx)
-        print('1')
         docx_temp = docx.Document(filepath)
         chg_font(docx_temp.styles['Normal'], fontname='宋体', size=Pt(12))
         composer.append(temp_name_docx)
-        print('2')
         composer.append(docx_temp)
-        print('3')
-
         ##### 方法2： 文档复制   （结束）#################################
         temp_page_docx = docx.Document()
         temp_page_docx.add_page_break()
@@ -88,6 +84,7 @@ print('一共提交作业：', file_number)
 
 composer.save(out_contact_file)
 new_docx = docx.Document(out_contact_file)
+#加了这个函数后，汇总后的文档不会出现大小字的情况
 chg_font(new_docx.styles['Normal'], fontname='宋体', size=Pt(12))
 new_docx.save(out_contact_file)
 
